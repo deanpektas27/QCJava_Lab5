@@ -30,26 +30,26 @@ public class Lab5Program1 {
 		String isOrIsNot, inputWord;
 		
                 
-                while(true){
-		// This line asks the user for input by popping out a single window
-		// with text input
-		inputWord = JOptionPane.showInputDialog(null, "Enter a word in all lower case:");
-		System.out.println(inputWord);
-                if(inputWord.equals("STOP")){
-                   
-                    JOptionPane.showMessageDialog(null, "Exit!!!");
-                    System.exit(0);
-                }
-                    
-		// if the inputWord is contained within wordArray return true
-		if (wordIsThere(inputWord, wordArray)) 
-			isOrIsNot = "is"; // set to is if the word is on the list
-		else
-			isOrIsNot = "is not"; // set to is not if the word is not on the list
-		
-		// Output to a JOptionPane window whether the word is on the list or not
-		JOptionPane.showMessageDialog(null, "The word " + inputWord + " " + isOrIsNot + " on the list.");
-                }
+//                while(true){
+//		// This line asks the user for input by popping out a single window
+//		// with text input
+//		inputWord = JOptionPane.showInputDialog(null, "Enter a word in all lower case:");
+//		System.out.println(inputWord);
+//                if(inputWord.equals("STOP")){
+//                   
+//                    JOptionPane.showMessageDialog(null, "Exit!!!");
+//                    System.exit(0);
+//                }
+//                    
+//		// if the inputWord is contained within wordArray return true
+//		if (wordIsThere(inputWord, wordArray)) 
+//			isOrIsNot = "is"; // set to is if the word is on the list
+//		else
+//			isOrIsNot = "is not"; // set to is not if the word is not on the list
+//		
+//		// Output to a JOptionPane window whether the word is on the list or not
+//		JOptionPane.showMessageDialog(null, "The word " + inputWord + " " + isOrIsNot + " on the list.");
+//                }
             } //main
 
 	public static boolean wordIsThere(String findMe, String[] theList) {
@@ -62,17 +62,37 @@ public class Lab5Program1 {
             return false;
 	}
         
-        public static int inputFromFile(String filename, String[] wordArray){
-            int num = 0;
-            TextFileInput file = new TextFileInput(filename);
-            
-            wordArray[num] = file.readLine();
-            
-            while(num <= 50 && wordArray[num].equals(file)){
-                num++;
-                wordArray[num] = file.readLine();
-            }
-            
-            return num;
-        }
+//        public static int inputFromFile(String filename, String[] wordArray){
+//            int num = 0;
+//            TextFileInput file = new TextFileInput(filename);
+//            
+//            wordArray[num] = file.readLine();
+//            
+//            while(num <= 50 && wordArray[num].equals(file)){
+//                num++;
+//                wordArray[num] = file.readLine();
+//                System.out.println(wordArray[num]);
+//            }
+//            
+//            return num;
+//        }
+        private static int inputFromFile(String filename, String[] wordArray){
+	      TextFileInput in = new TextFileInput(filename);
+	      int Num = 0;
+	      String line = in.readLine();
+//	      System.out.println(line);
+	      int wordArrayLength = wordArray.length;
+	      while ( Num < wordArray.length && line != null ) {
+	    	  wordArray[Num++] = line;
+	         line = in.readLine();
+//	         System.out.println(line);
+	      } // while 
+	      if ( line != null ) {
+	         System.out.println("File contains too many numbers.");
+	         System.out.println("This program can process only " + wordArrayLength + " words.");
+	         System.exit(1);
+	      } // if
+	      in.close();
+	      return Num; 
+	   }  // method inputFromFile 
 } // class Lab5Program1
